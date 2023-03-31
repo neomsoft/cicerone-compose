@@ -23,14 +23,11 @@ fun NavigationHost(
     ) {
         destinations.forEach { destination ->
 
-            println(destination.routeWithArguments)
-            println(destination.arguments)
-            println("---------------------------------------------")
             composable(
                 route = destination.routeWithArguments,
                 arguments = destination.arguments,
             ) {
-                destination.screen(router = router, navBackStackEntry = it)
+                destination.drawScreen(router = router, navBackStackEntry = it)
             }
         }
     }

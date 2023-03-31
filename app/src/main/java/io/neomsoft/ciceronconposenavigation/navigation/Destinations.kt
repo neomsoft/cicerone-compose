@@ -18,21 +18,27 @@ object Destinations {
 
     object Onboarding : Destination(route = "onboarding") {
         @Composable
-        override fun screen(router: Router) { OnboardingScreen(router) }
+        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+            OnboardingScreen(router)
+        }
 
         public override fun toScreen() = super.toScreen()
     }
 
     object Main : Destination(route = "main") {
         @Composable
-        override fun screen(router: Router) { MainScreen() }
+        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+            MainScreen()
+        }
 
         public override fun toScreen() = super.toScreen()
     }
 
     object Second : Destination(route = "second") {
         @Composable
-        override fun screen(router: Router) { SecondScreen(router) }
+        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+            SecondScreen(router)
+        }
 
         public override fun toScreen() = super.toScreen()
     }
@@ -45,14 +51,9 @@ object Destinations {
         routeWithArguments = "$ThirdRoute/{$ArgId}",
         arguments = listOf(navArgument(ArgId) { type = NavType.StringType })
     ) {
-        @Composable
-        override fun screen(router: Router) = Unit
 
         @Composable
-        override fun screen(
-            router: Router,
-            navBackStackEntry: NavBackStackEntry
-        ) {
+        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             ThirdScreen(
                 router = router,
                 id = navBackStackEntry.arguments!!.getString(ArgId)!!
@@ -62,7 +63,6 @@ object Destinations {
         fun toScreen(id: String): ComposeScreen {
             return ComposeScreen("$route/$id")
         }
-
     }
 
     fun values(): List<Destination> = listOf(

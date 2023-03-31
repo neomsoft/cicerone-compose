@@ -12,17 +12,15 @@ abstract class Destination(
     internal val routeWithArguments: String = route,
     internal val arguments: List<NamedNavArgument> = emptyList()
 ) {
-
-    @Composable
-    protected abstract fun screen(router: Router)
-
     protected open fun toScreen(): ComposeScreen {
         return ComposeScreen(routeWithArguments)
     }
 
     @Composable
-    open fun screen(
-        router: Router,
-        navBackStackEntry: NavBackStackEntry
-    ) = screen(router)
+    internal fun drawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        createScreen(router = router, navBackStackEntry = navBackStackEntry)
+    }
+
+    @Composable
+    protected abstract fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry)
 }
