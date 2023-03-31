@@ -11,6 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/modules" />
+            <option value="$PROJECT_DIR$/modules/android-libs" />
+            <option value="$PROJECT_DIR$/modules/android-libs/cicerone-compose" />
           </set>
         </option>
       </GradleProjectSettings>

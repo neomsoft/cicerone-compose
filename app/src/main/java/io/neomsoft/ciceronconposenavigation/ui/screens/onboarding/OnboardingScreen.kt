@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.terrakok.cicerone.Router
-import io.neomsoft.ciceronconposenavigation.navigation.ciceron.Screens
+import io.neomsoft.ciceronconposenavigation.navigation.Destinations
 import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationTheme
 
 @Composable
 fun OnboardingScreen(
     router: Router
 ) = OnboardingScreen(
-    onClick = { router.replaceScreen(Screens.main) },
+    onClick = { router.replaceScreen(Destinations.Main.toScreen()) },
     modifier = Modifier.fillMaxSize()
 )
 

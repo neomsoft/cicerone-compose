@@ -1,4 +1,4 @@
-package io.neomsoft.ciceronconposenavigation.navigation.compose
+package io.neomsoft.ciceronecompose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,16 +13,21 @@ fun NavigationHost(
     router: Router,
     navController: NavHostController,
     startDestination: Destination,
+    destinations: List<Destination>,
     modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination.route,
+        startDestination = startDestination.routeWithArguments,
         modifier = modifier
     ) {
-        Destination.values().forEach { destination ->
+        destinations.forEach { destination ->
+
+            println(destination.routeWithArguments)
+            println(destination.arguments)
+            println("---------------------------------------------")
             composable(
-                route = destination.route,
+                route = destination.routeWithArguments,
                 arguments = destination.arguments,
             ) {
                 destination.screen(router = router, navBackStackEntry = it)

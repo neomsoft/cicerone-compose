@@ -1,4 +1,4 @@
-package io.neomsoft.ciceronconposenavigation.navigation.ciceron
+package io.neomsoft.ciceronecompose
 
 import androidx.navigation.NavHostController
 import com.github.terrakok.cicerone.Back
@@ -7,7 +7,6 @@ import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Forward
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.Replace
-import io.neomsoft.ciceronconposenavigation.navigation.compose.navigateSingleTopTo
 
 class NavigatorImpl(
     private val navController: NavHostController

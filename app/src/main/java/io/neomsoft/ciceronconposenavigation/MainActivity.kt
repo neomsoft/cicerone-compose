@@ -10,9 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.AndroidEntryPoint
-import io.neomsoft.ciceronconposenavigation.navigation.ciceron.NavigatorImpl
-import io.neomsoft.ciceronconposenavigation.navigation.compose.Destination
-import io.neomsoft.ciceronconposenavigation.navigation.compose.NavigationHost
+import io.neomsoft.ciceronconposenavigation.navigation.Destinations
+import io.neomsoft.ciceronecompose.NavigationHost
+import io.neomsoft.ciceronecompose.NavigatorImpl
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +37,8 @@ class MainActivity : ComponentActivity() {
             NavigationHost(
                 router = router,
                 navController = navController,
-                startDestination = Destination.Screen.Onboarding,
+                startDestination = Destinations.Onboarding,
+                destinations = Destinations.values(),
                 modifier = Modifier
             )
         }

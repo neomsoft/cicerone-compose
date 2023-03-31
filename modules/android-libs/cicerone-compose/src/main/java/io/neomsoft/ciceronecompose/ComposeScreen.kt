@@ -1,4 +1,4 @@
-package io.neomsoft.ciceronconposenavigation.navigation.ciceron
+package io.neomsoft.ciceronecompose
 
 import com.github.terrakok.cicerone.Screen
 
