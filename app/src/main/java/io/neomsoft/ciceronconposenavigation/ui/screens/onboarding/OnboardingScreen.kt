@@ -12,22 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import io.neomsoft.ciceronconposenavigation.navigation.Destination
-import io.neomsoft.ciceronconposenavigation.navigation.navigateSingleTopTo
+import com.github.terrakok.cicerone.Router
+import io.neomsoft.ciceronconposenavigation.navigation.ciceron.Screens
 import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationTheme
 
 @Composable
 fun OnboardingScreen(
-    navController: NavHostController
+    router: Router
 ) = OnboardingScreen(
-    onClick = {
-        navController.navigateSingleTopTo(Destination.Screen.Main.route) {
-            popUpTo(Destination.Screen.Onboarding.route) {
-                inclusive = true
-            }
-        }
-    },
+    onClick = { router.replaceScreen(Screens.main) },
     modifier = Modifier.fillMaxSize()
 )
 

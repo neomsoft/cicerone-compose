@@ -12,18 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import io.neomsoft.ciceronconposenavigation.navigation.Destination
-import io.neomsoft.ciceronconposenavigation.navigation.navigateSingleTopTo
+import androidx.hilt.navigation.compose.hiltViewModel
 import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationTheme
 
 @Composable
-fun MainScreen(
-    navController: NavHostController
-) = MainScreen(
-    onClick = { navController.navigateSingleTopTo(Destination.Screen.Second.route) },
-    modifier = Modifier.fillMaxSize()
-)
+fun MainScreen() {
+    val viewModel: MainViewModel = hiltViewModel()
+
+    MainScreen(
+        onClick = { viewModel.onClick() },
+        modifier = Modifier.fillMaxSize()
+    )
+}
 
 @Composable
 fun MainScreen(

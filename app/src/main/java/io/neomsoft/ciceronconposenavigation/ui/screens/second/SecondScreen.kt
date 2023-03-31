@@ -12,19 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import io.neomsoft.ciceronconposenavigation.navigation.Destination
-import io.neomsoft.ciceronconposenavigation.navigation.navigateSingleTopTo
+import com.github.terrakok.cicerone.Router
+import io.neomsoft.ciceronconposenavigation.navigation.ciceron.Screens
 import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationTheme
 
 @Composable
 fun SecondScreen(
-    navController: NavHostController
+    router: Router
 ) = SecondScreen(
-    onClick = {
-        val route = Destination.Screen.Third.createRoute("testid")
-        navController.navigateSingleTopTo(route)
-    },
+    onClick = { router.navigateTo(Screens.third("testid")) },
     modifier = Modifier.fillMaxSize()
 )
 

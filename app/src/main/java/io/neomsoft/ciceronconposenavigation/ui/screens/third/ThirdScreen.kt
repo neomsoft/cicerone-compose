@@ -12,18 +12,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import com.github.terrakok.cicerone.Router
 import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationTheme
 
 @Composable
 fun ThirdScreen(
-    navController: NavHostController,
+    router: Router,
     id: String
-) = ThirdScreen(
-    onClick = { navController.navigateUp() },
-    id = id,
-    modifier = Modifier.fillMaxSize()
-)
+) {
+    ThirdScreen(
+        onClick = { router.exit() },
+        id = id,
+        modifier = Modifier.fillMaxSize()
+    )
+}
 
 @Composable
 fun ThirdScreen(

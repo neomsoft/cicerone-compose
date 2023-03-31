@@ -1,12 +1,12 @@
-package io.neomsoft.ciceronconposenavigation.navigation
+package io.neomsoft.ciceronconposenavigation.navigation.compose
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.github.terrakok.cicerone.Router
 import io.neomsoft.ciceronconposenavigation.ui.screens.main.MainScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.onboarding.OnboardingScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.second.SecondScreen
@@ -15,7 +15,7 @@ import io.neomsoft.ciceronconposenavigation.ui.screens.third.ThirdScreen
 @SuppressLint("ComposableNaming")
 sealed class Destination(
     protected val _route: String,
-    private val screenCreator: @Composable (navController: NavHostController) -> Unit
+    private val screenCreator: @Composable (router: Router) -> Unit
 ) {
 
     open val route = _route
@@ -23,15 +23,15 @@ sealed class Destination(
 
     @Composable
     open fun screen(
-        navController: NavHostController,
+        router: Router,
         navBackStackEntry: NavBackStackEntry
-    ) = screenCreator(navController = navController)
+    ) = screenCreator(router = router)
 
     abstract class Screen {
 
         object Onboarding : Destination( "onboarding", { OnboardingScreen(it) })
 
-        object Main : Destination("main", { MainScreen(it) })
+        object Main : Destination("main", { MainScreen() })
 
         object Second : Destination("second", { SecondScreen(it) })
 
@@ -43,11 +43,11 @@ sealed class Destination(
 
             @Composable
             override fun screen(
-                navController: NavHostController,
+                router: Router,
                 navBackStackEntry: NavBackStackEntry
             ) {
                 ThirdScreen(
-                    navController = navController,
+                    router = router,
                     id = navBackStackEntry.arguments!!.getString(argId)!!
                 )
             }
