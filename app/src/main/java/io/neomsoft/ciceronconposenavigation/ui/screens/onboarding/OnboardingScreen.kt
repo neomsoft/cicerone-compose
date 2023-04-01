@@ -20,7 +20,7 @@ import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationThe
 fun OnboardingScreen(
     router: Router
 ) = OnboardingScreen(
-    onClick = { router.replaceScreen(Destinations.Main.toScreen()) },
+    onClick = { router.replaceScreen(Destinations.Main.screen) },
     modifier = Modifier.fillMaxSize()
 )
 

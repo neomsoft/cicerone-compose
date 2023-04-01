@@ -12,6 +12,6 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun onClick() {
-        router.navigateTo(Destinations.Second.toScreen())
+        router.navigateTo(Destinations.Second.screen)
     }
 }
