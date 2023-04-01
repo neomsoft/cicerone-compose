@@ -10,15 +10,13 @@ import io.neomsoft.ciceronconposenavigation.ui.screens.main.MainScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.onboarding.OnboardingScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.second.SecondScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.third.ThirdScreen
+import io.neomsoft.ciceronecompose.ComposeScreen
 import io.neomsoft.ciceronecompose.Destination
-import io.neomsoft.ciceronecompose.RouteInfo
 
 @SuppressLint("ComposableNaming")
 object Destinations {
 
-    object Onboarding : Destination() {
-
-        override val routeInfo = RouteInfo.withoutArguments("onboarding")
+    object Onboarding : Destination(route = "onboarding") {
 
         @Composable
         override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
@@ -26,11 +24,9 @@ object Destinations {
         }
     }
 
-    object Main : Destination() {
+    object Main : Destination(route = "main") {
 
-        override val routeInfo = RouteInfo.withoutArguments("main")
-
-        val screen = routeInfo.screen()
+        val screen = ComposeScreen(route = route())
 
         @Composable
         override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
@@ -38,12 +34,9 @@ object Destinations {
         }
     }
 
+    object Second : Destination(route = "second") {
 
-    object Second : Destination() {
-
-        override val routeInfo = RouteInfo.withoutArguments("second")
-
-        val screen = routeInfo.screen()
+        val screen = ComposeScreen(route = route())
 
         @Composable
         override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
@@ -51,18 +44,15 @@ object Destinations {
         }
     }
 
-    object Third : Destination() {
+    private const val ARG_ID = "id"
+    private const val THIRD_ROUTE = "third"
 
-        private const val ARG_ID = "id"
-        private const val THIRD_ROUTE = "third"
+    object Third : Destination(
+        route = "${THIRD_ROUTE}/{${ARG_ID}}",
+        arguments = listOf(navArgument(ARG_ID) { type = NavType.StringType })
+    ) {
 
-        override val routeInfo =
-            RouteInfo(
-                pattern = "$THIRD_ROUTE/{$ARG_ID}",
-                arguments = listOf(navArgument(ARG_ID) { type = NavType.StringType })
-            )
-
-        fun screen(id: String) = routeInfo.screen(argumentNameValues = mapOf(ARG_ID to id))
+        fun screen(id: String) = ComposeScreen(route = route(argumentNameValues = mapOf(ARG_ID to id)))
 
         @Composable
         override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {

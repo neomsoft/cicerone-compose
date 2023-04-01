@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.neomsoft.ciceronconposenavigation.navigation.Destinations
+import io.neomsoft.ciceronconposenavigation.navigation.Destinations.Main.screen
 import javax.inject.Inject
 
 @HiltViewModel
