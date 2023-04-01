@@ -17,58 +17,58 @@ import io.neomsoft.ciceronecompose.Destination
 object Destinations {
 
     object Onboarding : Destination(route = "onboarding") {
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             OnboardingScreen(router)
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
     object Main : Destination(route = "main") {
+
+        val screen = ComposeScreen(route = route())
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             MainScreen()
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
     object Second : Destination(route = "second") {
+
+        val screen = ComposeScreen(route = route())
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             SecondScreen(router)
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
-    private const val ArgId = "id"
-    private const val ThirdRoute = "third"
+    private const val ARG_ID = "id"
+    private const val THIRD_ROUTE = "third"
 
     object Third : Destination(
-        route = ThirdRoute,
-        routeWithArguments = "$ThirdRoute/{$ArgId}",
-        arguments = listOf(navArgument(ArgId) { type = NavType.StringType })
+        route = "${THIRD_ROUTE}/{${ARG_ID}}",
+        arguments = listOf(navArgument(ARG_ID) { type = NavType.StringType })
     ) {
 
+        fun screen(id: String) = ComposeScreen(route = route(argumentNameValues = mapOf(ARG_ID to id)))
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             ThirdScreen(
                 router = router,
-                id = navBackStackEntry.arguments!!.getString(ArgId)!!
+                id = navBackStackEntry.arguments!!.getString(ARG_ID)!!
             )
-        }
-
-        fun toScreen(id: String): ComposeScreen {
-            return ComposeScreen("$route/$id")
         }
     }
 
-    fun values(): List<Destination> = listOf(
-        Onboarding,
-        Main,
-        Second,
-        Third,
-    )
+    fun values(): List<Destination> {
+        return listOf(
+            Onboarding,
+            Main,
+            Second,
+            Third
+        )
+    }
 }

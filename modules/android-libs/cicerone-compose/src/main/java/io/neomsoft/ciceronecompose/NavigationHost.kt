@@ -18,13 +18,13 @@ fun NavigationHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination.routeWithArguments,
+        startDestination = startDestination.route,
         modifier = modifier
     ) {
         destinations.forEach { destination ->
 
             composable(
-                route = destination.routeWithArguments,
+                route = destination.route,
                 arguments = destination.arguments,
             ) {
                 destination.drawScreen(router = router, navBackStackEntry = it)

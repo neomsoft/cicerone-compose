@@ -23,20 +23,20 @@ class NavigatorImpl(
     }
 
     private fun applyCommand(command: Command) {
-        when(command) {
-            is Forward -> forward(command)
-            is Replace -> replace(command)
+        when (command) {
+            is Forward -> forward((command.screen as ComposeScreen).route)
+            is Replace -> replace((command.screen as ComposeScreen).route)
             is Back -> back()
             is BackTo -> TODO()
         }
     }
 
-    private fun forward(command: Forward) {
-        navController.navigateSingleTopTo(command.screen.screenKey)
+    private fun forward(route: String) {
+        navController.navigateSingleTopTo(route)
     }
 
-    private fun replace(command: Replace) {
-        navController.navigateSingleTopTo(command.screen.screenKey) {
+    private fun replace(route: String) {
+        navController.navigateSingleTopTo(route) {
             val currentRoute = navController.currentBackStackEntry?.destination?.route
 
             if (currentRoute != null) {

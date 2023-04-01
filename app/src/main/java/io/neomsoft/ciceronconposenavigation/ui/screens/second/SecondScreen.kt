@@ -20,7 +20,7 @@ import io.neomsoft.ciceronconposenavigation.ui.theme.CiceronConposeNavigationThe
 fun SecondScreen(
     router: Router
 ) = SecondScreen(
-    onClick = { router.navigateTo(Destinations.Third.toScreen("testid")) },
+    onClick = { router.navigateTo(Destinations.Third.screen(id = "test_id")) },
     modifier = Modifier.fillMaxSize()
 )
 

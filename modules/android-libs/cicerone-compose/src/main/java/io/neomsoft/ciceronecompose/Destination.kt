@@ -8,19 +8,41 @@ import com.github.terrakok.cicerone.Router
 
 @SuppressLint("ComposableNaming")
 abstract class Destination(
-    protected val route: String,
-    internal val routeWithArguments: String = route,
+    internal val route: String,
     internal val arguments: List<NamedNavArgument> = emptyList()
 ) {
-    protected open fun toScreen(): ComposeScreen {
-        return ComposeScreen(routeWithArguments)
-    }
 
     @Composable
     internal fun drawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
-        createScreen(router = router, navBackStackEntry = navBackStackEntry)
+        onDrawScreen(router = router, navBackStackEntry = navBackStackEntry)
     }
 
     @Composable
-    protected abstract fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry)
+    protected abstract fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry)
+
+    protected fun route(argumentNameValues: Map<String, String> = emptyMap()): String {
+        checkArguments(argumentNameValues)
+
+        var routeWithValues = route
+
+        argumentNameValues.forEach { (name, value) ->
+            routeWithValues = routeWithValues.replace("{$name}", value)
+        }
+
+        return routeWithValues
+    }
+
+    private fun checkArguments(argumentNameValues: Map<String, String>) {
+        if (arguments.size != argumentNameValues.size) {
+            throw IllegalArgumentException(
+                "Some values is not provided or missed. " +
+                        "Arguments count: ${arguments.size}, received values count: ${argumentNameValues.size}"
+            )
+        }
+
+        argumentNameValues
+            .toList()
+            .find { pair -> arguments.none { it.name == pair.first } }
+            ?.also { throw IllegalArgumentException("Argument $it is not registered") }
+    }
 }
