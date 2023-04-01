@@ -10,65 +10,75 @@ import io.neomsoft.ciceronconposenavigation.ui.screens.main.MainScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.onboarding.OnboardingScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.second.SecondScreen
 import io.neomsoft.ciceronconposenavigation.ui.screens.third.ThirdScreen
-import io.neomsoft.ciceronecompose.ComposeScreen
 import io.neomsoft.ciceronecompose.Destination
+import io.neomsoft.ciceronecompose.RouteInfo
 
 @SuppressLint("ComposableNaming")
 object Destinations {
 
-    object Onboarding : Destination(route = "onboarding") {
+    object Onboarding : Destination() {
+
+        override val routeInfo = RouteInfo.withoutArguments("onboarding")
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             OnboardingScreen(router)
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
-    object Main : Destination(route = "main") {
+    object Main : Destination() {
+
+        override val routeInfo = RouteInfo.withoutArguments("main")
+
+        val screen = routeInfo.screen()
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             MainScreen()
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
-    object Second : Destination(route = "second") {
+
+    object Second : Destination() {
+
+        override val routeInfo = RouteInfo.withoutArguments("second")
+
+        val screen = routeInfo.screen()
+
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             SecondScreen(router)
         }
-
-        public override fun toScreen() = super.toScreen()
     }
 
-    private const val ArgId = "id"
-    private const val ThirdRoute = "third"
+    object Third : Destination() {
 
-    object Third : Destination(
-        route = ThirdRoute,
-        routeWithArguments = "$ThirdRoute/{$ArgId}",
-        arguments = listOf(navArgument(ArgId) { type = NavType.StringType })
-    ) {
+        private const val ARG_ID = "id"
+        private const val THIRD_ROUTE = "third"
+
+        override val routeInfo =
+            RouteInfo(
+                pattern = "$THIRD_ROUTE/{$ARG_ID}",
+                arguments = listOf(navArgument(ARG_ID) { type = NavType.StringType })
+            )
+
+        fun screen(id: String) = routeInfo.screen(argumentNameValues = mapOf(ARG_ID to id))
 
         @Composable
-        override fun createScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
+        override fun onDrawScreen(router: Router, navBackStackEntry: NavBackStackEntry) {
             ThirdScreen(
                 router = router,
-                id = navBackStackEntry.arguments!!.getString(ArgId)!!
+                id = navBackStackEntry.arguments!!.getString(ARG_ID)!!
             )
-        }
-
-        fun toScreen(id: String): ComposeScreen {
-            return ComposeScreen("$route/$id")
         }
     }
 
-    fun values(): List<Destination> = listOf(
-        Onboarding,
-        Main,
-        Second,
-        Third,
-    )
+    fun values(): List<Destination> {
+        return listOf(
+            Onboarding,
+            Main,
+            Second,
+            Third
+        )
+    }
 }
